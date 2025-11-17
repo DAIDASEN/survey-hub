@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <title>Hidden Figures Tests Hub</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 2rem 1.5rem 3rem;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #f3f4f6;
+      color: #111827;
+    }
+
+    .page {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      font-size: 1.8rem;
+      margin: 0 0 0.5rem;
+    }
+
+    .subtitle {
+      color: #6b7280;
+      margin-bottom: 1.5rem;
+      font-size: 0.95rem;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.2rem;
+    }
+
+    .card {
+      background: #ffffff;
+      border-radius: 16px;
+      padding: 1.25rem 1.3rem;
+      box-shadow: 0 8px 20px rgba(15, 23, 42, 0.08);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 28px rgba(15, 23, 42, 0.12);
+    }
+
+    .card-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+
+    .card-tag {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.15rem 0.5rem;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      background: #eff6ff;
+      color: #1d4ed8;
+      margin-bottom: 0.6rem;
+    }
+
+    .card-meta {
+      font-size: 0.9rem;
+      color: #6b7280;
+      margin-bottom: 0.4rem;
+    }
+
+    .card-progress {
+      font-size: 0.9rem;
+      margin-top: 0.2rem;
+    }
+
+    .card-progress strong {
+      font-weight: 600;
+    }
+
+    .card-footer {
+      margin-top: 0.9rem;
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .btn-primary {
+      flex: 1;
+      display: inline-block;
+      text-align: center;
+      border-radius: 999px;
+      padding: 0.5rem 0.9rem;
+      border: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      text-decoration: none;
+      background: #3b82f6;
+      color: white;
+      cursor: pointer;
+      transition: background 0.15s ease, transform 0.1s ease;
+    }
+
+    .btn-primary:hover {
+      background: #2563eb;
+      transform: translateY(-1px);
+    }
+
+    .btn-primary.disabled {
+      background: #9ca3af;
+      cursor: default;
+      pointer-events: none;
+    }
+
+    .badge-full {
+      font-size: 0.8rem;
+      padding: 0.2rem 0.5rem;
+      border-radius: 999px;
+      background: #dcfce7;
+      color: #166534;
+      margin-left: 0.4rem;
+    }
+
+    @media (max-width: 600px) {
+      body {
+        padding: 1.5rem 1rem 2.5rem;
+      }
+
+      h1 {
+        font-size: 1.4rem;
+      }
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+  <h1>Hidden Figures Tests Hub</h1>
+  <p class="subtitle">
+    下面有 20 个独立的测试，每张卡片对应一个 Qualtrics 问卷。点击「开始测试」会在新标签页打开。
+    我们每个测试只需要 <strong>20 份有效结果</strong>（实际限制请在 Qualtrics 里用 Quota 控制）。
+  </p>
+
+  <div id="testGrid" class="grid"></div>
+</div>
+
+<script>
+  // 每个测试目标样本数
+  const TARGET = 20;
+
+  // 你提供的 20 个测试 + URL
+  // count 目前先写 0，后续如果你想手动更新已经收集到多少，改这里就行
+  const tests = [
+    { id: "CF1",  name: "CF1",  url: "https://cuhk.qualtrics.com/jfe/form/SV_didAxLgLwLbYpbo", count: 0 },
+    { id: "CF2",  name: "CF2",  url: "https://cuhk.qualtrics.com/jfe/form/SV_6rpuQCGq3juwPv8", count: 0 },
+    { id: "CF3",  name: "CF3",  url: "https://cuhk.qualtrics.com/jfe/form/SV_3C7JTvdu6iPdJ3w", count: 0 },
+    { id: "CS1",  name: "CS1",  url: "https://cuhk.qualtrics.com/jfe/form/SV_eKzYZt8vuQIlIyi", count: 0 },
+    { id: "CS2",  name: "CS2",  url: "https://cuhk.qualtrics.com/jfe/form/SV_bI6UCowYrIBRrCe", count: 0 },
+    { id: "CS3",  name: "CS3",  url: "https://cuhk.qualtrics.com/jfe/form/SV_b2bi8R81Lxz8CNg", count: 0 },
+    { id: "I3",   name: "I3",   url: "https://cuhk.qualtrics.com/jfe/form/SV_4I2RCA0e1z32yNM", count: 0 },
+    { id: "MA1",  name: "MA1",  url: "https://cuhk.qualtrics.com/jfe/form/SV_85JgkP19VUmlxj0", count: 0 },
+    { id: "MV1",  name: "MV1",  url: "https://cuhk.qualtrics.com/jfe/form/SV_7WFtcGoOmeYltSS", count: 0 },
+    { id: "MV2",  name: "MV2",  url: "https://cuhk.qualtrics.com/jfe/form/SV_9LcGI9W0ce4nVga", count: 0 },
+    { id: "MV3",  name: "MV3",  url: "https://cuhk.qualtrics.com/jfe/form/SV_cBDJHNsepAfaOea", count: 0 },
+    { id: "P3",   name: "P3",   url: "https://cuhk.qualtrics.com/jfe/form/SV_0qrFhEQHHxwHJtk", count: 0 },
+    { id: "RL2",  name: "RL2",  url: "https://cuhk.qualtrics.com/jfe/form/SV_9uGmFKQVTMeo1dc", count: 0 },
+    { id: "S1",   name: "S1",   url: "https://cuhk.qualtrics.com/jfe/form/SV_7Uv1eOuQNt8MFX8", count: 0 },
+    { id: "S2",   name: "S2",   url: "https://cuhk.qualtrics.com/jfe/form/SV_bsleJjJpMbwD6PY", count: 0 },
+    { id: "SS2",  name: "SS2",  url: "https://cuhk.qualtrics.com/jfe/form/SV_5pzoE7uZCUnnVwW", count: 0 },
+    { id: "SS3",  name: "SS3",  url: "https://cuhk.qualtrics.com/jfe/form/SV_b7ahpV37JZ0taho", count: 0 },
+    { id: "VZ1",  name: "VZ1",  url: "https://cuhk.qualtrics.com/jfe/form/SV_9XgWSvgwpKxAfAO", count: 0 },
+    { id: "VZ2",  name: "VZ2",  url: "https://cuhk.qualtrics.com/jfe/form/SV_bCSXLM6vhRxNriC", count: 0 },
+    { id: "VZ3",  name: "VZ3",  url: "https://cuhk.qualtrics.com/jfe/form/SV_6WmTybPD2MiCEcu", count: 0 },
+  ];
+
+  const grid = document.getElementById("testGrid");
+
+  tests.forEach((test, index) => {
+    const card = document.createElement("article");
+    card.className = "card";
+
+    const done = typeof test.count === "number" && test.count >= TARGET;
+    const safeCount = isNaN(test.count) ? 0 : test.count;
+
+    card.innerHTML = `
+      <div>
+        <div class="card-tag">Test ${index + 1}</div>
+        <div class="card-title">${test.name}</div>
+        <div class="card-meta">Qualtrics Survey · ${test.id}</div>
+        <div class="card-progress">
+          已收集：<strong>${safeCount}</strong> / ${TARGET}
+          ${done ? '<span class="badge-full">已满</span>' : ""}
+        </div>
+      </div>
+      <div class="card-footer">
+        <a
+          class="btn-primary ${done ? "disabled" : ""}"
+          href="${done ? "#" : test.url}"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          ${done ? "已收集满 20 人" : "开始测试"}
+        </a>
+      </div>
+    `;
+
+    grid.appendChild(card);
+  });
+
+  // 说明：
+  // 1. 真正限制“最多 20 人”请在每个 Qualtrics 问卷里设置 Quota=20。
+  // 2. 这里的 count 只是前端显示，不会自动更新。
+  //    如果你以后想做自动实时人数，需要额外用 Qualtrics API + 后端小服务来提供人数接口。
+</script>
+</body>
+</html>

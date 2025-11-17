@@ -158,7 +158,6 @@
 <div class="page">
   <h1>VisFactor Tests Hub</h1>
 
-
   <div id="testGrid" class="grid"></div>
 </div>
 
@@ -166,28 +165,18 @@
   // 每个测试目标样本数
   const TARGET = 20;
 
-  // 最新的 20 个测试 + URL（已按你发的表更新）
+  // 现在只保留你指定的这 10 个测试 + 最新 URL
   const tests = [
     { id: "CF1",  name: "CF1",  url: "https://cuhk.qualtrics.com/jfe/form/SV_didAxLgLwLbYpbo", count: 0 },
     { id: "CF2",  name: "CF2",  url: "https://cuhk.qualtrics.com/jfe/form/SV_6rpuQCGq3juwPv8", count: 0 },
     { id: "CF3",  name: "CF3",  url: "https://cuhk.qualtrics.com/jfe/form/SV_3C7JTvdu6iPdJ3w", count: 0 },
-    { id: "CS1",  name: "CS1",  url: "https://cuhk.qualtrics.com/jfe/form/SV_eKzYZt8vuQIlIyi", count: 0 },
     { id: "CS2",  name: "CS2",  url: "https://cuhk.qualtrics.com/jfe/form/SV_bI6UCowYrIBRrCe", count: 0 },
-    { id: "CS3",  name: "CS3",  url: "https://cuhk.qualtrics.com/jfe/form/SV_b2bi8R81Lxz8CNg", count: 0 },
     { id: "I3",   name: "I3",   url: "https://cuhk.qualtrics.com/jfe/form/SV_4I2RCA0e1z32yNM", count: 0 },
     { id: "MA1",  name: "MA1",  url: "https://cuhk.qualtrics.com/jfe/form/SV_85JgkP19VUmlxj0", count: 0 },
-    { id: "MV1",  name: "MV1",  url: "https://cuhk.qualtrics.com/jfe/form/SV_9Lm2jo0VvYdrers", count: 0 },
-    { id: "MV2",  name: "MV2",  url: "https://cuhk.qualtrics.com/jfe/form/SV_9LcGI9W0ce4nVga", count: 0 },
-    { id: "MV3",  name: "MV3",  url: "https://cuhk.qualtrics.com/jfe/form/SV_0pSx81WWv4Fo8Tk", count: 0 },
-    { id: "P3",   name: "P3",   url: "https://cuhk.qualtrics.com/jfe/form/SV_0qrFhEQHHxwHJtk", count: 0 },
-    { id: "RL2",  name: "RL2",  url: "https://cuhk.qualtrics.com/jfe/form/SV_9uGmFKQVTMeo1dc", count: 0 },
-    { id: "S1",   name: "S1",   url: "https://cuhk.qualtrics.com/jfe/form/SV_7Uv1eOuQNt8MFX8", count: 0 },
-    { id: "S2",   name: "S2",   url: "https://cuhk.qualtrics.com/jfe/form/SV_2fcmfaTtHDrusx8", count: 0 },
-    { id: "SS2",  name: "SS2",  url: "https://cuhk.qualtrics.com/jfe/form/SV_5pzoE7uZCUnnVwW", count: 0 },
-    { id: "SS3",  name: "SS3",  url: "https://cuhk.qualtrics.com/jfe/form/SV_a9N6aFC4VElk5Ya", count: 0 },
-    { id: "VZ1",  name: "VZ1",  url: "https://cuhk.qualtrics.com/jfe/form/SV_9XgWSvgwpKxAfAO", count: 0 },
-    { id: "VZ2",  name: "VZ2",  url: "https://cuhk.qualtrics.com/jfe/form/SV_bCSXLM6vhRxNriC", count: 0 },
-    { id: "VZ3",  name: "VZ3",  url: "https://cuhk.qualtrics.com/jfe/form/SV_aYtum78i2qjg1M2", count: 0 },
+    { id: "MV1",  name: "MV1",  url: "https://cuhk.qualtrics.com/jfe/form/SV_cZ6k9a69RdaC102", count: 0 },
+    { id: "MV3",  name: "MV3",  url: "https://cuhk.qualtrics.com/jfe/form/SV_4OTk0N2jbod0QnA", count: 0 },
+    { id: "S2",   name: "S2",   url: "https://cuhk.qualtrics.com/jfe/form/SV_8eKqUKzNhrkLJnE", count: 0 },
+    { id: "SS3",  name: "SS3",  url: "https://cuhk.qualtrics.com/jfe/form/SV_40l2iROoF7ncEaq", count: 0 },
   ];
 
   const grid = document.getElementById("testGrid");

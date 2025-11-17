@@ -157,8 +157,7 @@
   // 每个测试目标样本数
   const TARGET = 20;
 
-  // 你提供的 20 个测试 + URL
-  // count 目前先写 0，后续如果你想手动更新已经收集到多少，改这里就行
+  // 最新的 20 个测试 + URL（已按你发的表更新）
   const tests = [
     { id: "CF1",  name: "CF1",  url: "https://cuhk.qualtrics.com/jfe/form/SV_didAxLgLwLbYpbo", count: 0 },
     { id: "CF2",  name: "CF2",  url: "https://cuhk.qualtrics.com/jfe/form/SV_6rpuQCGq3juwPv8", count: 0 },
@@ -168,18 +167,18 @@
     { id: "CS3",  name: "CS3",  url: "https://cuhk.qualtrics.com/jfe/form/SV_b2bi8R81Lxz8CNg", count: 0 },
     { id: "I3",   name: "I3",   url: "https://cuhk.qualtrics.com/jfe/form/SV_4I2RCA0e1z32yNM", count: 0 },
     { id: "MA1",  name: "MA1",  url: "https://cuhk.qualtrics.com/jfe/form/SV_85JgkP19VUmlxj0", count: 0 },
-    { id: "MV1",  name: "MV1",  url: "https://cuhk.qualtrics.com/jfe/form/SV_7WFtcGoOmeYltSS", count: 0 },
+    { id: "MV1",  name: "MV1",  url: "https://cuhk.qualtrics.com/jfe/form/SV_9Lm2jo0VvYdrers", count: 0 },
     { id: "MV2",  name: "MV2",  url: "https://cuhk.qualtrics.com/jfe/form/SV_9LcGI9W0ce4nVga", count: 0 },
-    { id: "MV3",  name: "MV3",  url: "https://cuhk.qualtrics.com/jfe/form/SV_cBDJHNsepAfaOea", count: 0 },
+    { id: "MV3",  name: "MV3",  url: "https://cuhk.qualtrics.com/jfe/form/SV_0pSx81WWv4Fo8Tk", count: 0 },
     { id: "P3",   name: "P3",   url: "https://cuhk.qualtrics.com/jfe/form/SV_0qrFhEQHHxwHJtk", count: 0 },
     { id: "RL2",  name: "RL2",  url: "https://cuhk.qualtrics.com/jfe/form/SV_9uGmFKQVTMeo1dc", count: 0 },
     { id: "S1",   name: "S1",   url: "https://cuhk.qualtrics.com/jfe/form/SV_7Uv1eOuQNt8MFX8", count: 0 },
-    { id: "S2",   name: "S2",   url: "https://cuhk.qualtrics.com/jfe/form/SV_bsleJjJpMbwD6PY", count: 0 },
+    { id: "S2",   name: "S2",   url: "https://cuhk.qualtrics.com/jfe/form/SV_2fcmfaTtHDrusx8", count: 0 },
     { id: "SS2",  name: "SS2",  url: "https://cuhk.qualtrics.com/jfe/form/SV_5pzoE7uZCUnnVwW", count: 0 },
-    { id: "SS3",  name: "SS3",  url: "https://cuhk.qualtrics.com/jfe/form/SV_b7ahpV37JZ0taho", count: 0 },
+    { id: "SS3",  name: "SS3",  url: "https://cuhk.qualtrics.com/jfe/form/SV_a9N6aFC4VElk5Ya", count: 0 },
     { id: "VZ1",  name: "VZ1",  url: "https://cuhk.qualtrics.com/jfe/form/SV_9XgWSvgwpKxAfAO", count: 0 },
     { id: "VZ2",  name: "VZ2",  url: "https://cuhk.qualtrics.com/jfe/form/SV_bCSXLM6vhRxNriC", count: 0 },
-    { id: "VZ3",  name: "VZ3",  url: "https://cuhk.qualtrics.com/jfe/form/SV_6WmTybPD2MiCEcu", count: 0 },
+    { id: "VZ3",  name: "VZ3",  url: "https://cuhk.qualtrics.com/jfe/form/SV_aYtum78i2qjg1M2", count: 0 },
   ];
 
   const grid = document.getElementById("testGrid");
@@ -215,11 +214,6 @@
 
     grid.appendChild(card);
   });
-
-  // 说明：
-  // 1. 真正限制“最多 20 人”请在每个 Qualtrics 问卷里设置 Quota=20。
-  // 2. 这里的 count 只是前端显示，不会自动更新。
-  //    如果你以后想做自动实时人数，需要额外用 Qualtrics API + 后端小服务来提供人数接口。
 </script>
 </body>
 </html>
